@@ -173,9 +173,23 @@
     <p>Если у вас возникли сложности - пожалуйста напишите в техподдержку. Мы поможем.</p>
 
     <script>
-        // Получаем параметр link из URL
+        // Получаем параметр link из URL (query-параметр или путь)
         const urlParams = new URLSearchParams(window.location.search);
-        const link = urlParams.get('link');
+        let link = urlParams.get('link');
+
+        // Фолбэк: извлекаем ссылку из пути URL
+        // Формат: /rabbitHoleiOs/https://...
+        if (!link) {
+            const path = window.location.pathname;
+            const repoBase = '/rabbitHoleiOs/';
+            const idx = path.indexOf(repoBase);
+            if (idx !== -1) {
+                const linkPart = path.substring(idx + repoBase.length);
+                if (linkPart && linkPart.startsWith('http')) {
+                    link = decodeURIComponent(linkPart);
+                }
+            }
+        }
 
         if (link) {
             document.getElementById('linkBox').classList.add('visible');

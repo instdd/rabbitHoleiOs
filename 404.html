@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+        // Извлекаем ссылку из пути URL
+        // Формат: /rabbitHoleiOs/https://...
+        var path = window.location.pathname;
+        var repoBase = '/rabbitHoleiOs/';
+        var idx = path.indexOf(repoBase);
+        if (idx !== -1) {
+            var linkPart = path.substring(idx + repoBase.length);
+            if (linkPart) {
+                // Перенаправляем на index.html с параметром link
+                window.location.replace(repoBase + '?link=' + encodeURIComponent(linkPart));
+            } else {
+                window.location.replace(repoBase);
+            }
+        } else {
+            window.location.replace('/');
+        }
+    </script>
+</head>
+<body>
+    <p>Перенаправление...</p>
+</body>
+</html>
